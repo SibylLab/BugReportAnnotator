@@ -1,0 +1,3919 @@
+[
+    {
+        "id": 9481621,
+        "title": "Window hint isn't being set to float",
+        "user": {
+            "login": "berle"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "I use the i3 window manager where windows are tiled instead of floated by default.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "The way the window manager decides which windows should float and which should tile, is to look at the hints set by the application so that if a window really needs to float for whatever reason, it gets to do that.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.3,
+                "sentence": "The SparkleShare GUI looks really, really bad when it gets tiled, I'm almost certain it's intended to float, however the application doesn't set the appropriate hint to tell the wm this by default, this should probably be fixed.",
+                "plan": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 11635617,
+                "user": {
+                    "login": "hbons"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "do you know what this hint is and how to set it?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "i've never heard of this window manager before.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1120
+            },
+            {
+                "id": 11636078,
+                "user": {
+                    "login": "berle"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Hmm, I think it is _NET_WM_WINDOW_TYPE_DIALOG mentioned in http://standards.freedesktop.org/wm-spec/latest/ar01s05.html that would be the correct hint to set.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 1120
+            },
+            {
+                "id": 11810368,
+                "user": {
+                    "login": "hbons"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "you mentioned on IRC that the fix on the i3fix branch works.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 4.2,
+                        "sentence": "i've applied it to the about dialog now as well.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 4.3,
+                        "sentence": "i'll close this issue now and will merge the branch when i have access to my Linux box again.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1120
+            }
+        ]
+    },
+    {
+        "id": 5083165,
+        "title": "Flexible routing scopes",
+        "user": {
+            "login": "excid3"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "One of the things that I think could make  Devise really handy, and understandable to newcomers is making scopes more flexible for constraints.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "Take this for example:\n\n```ruby\n  devise_scope :user, lambda { |user| user.role == \"admin\"  } do\n    root to: \"admin#dashboard\"\n  end\n```\nor\n\n```ruby\n  authenticated :user, lambda { |user| user.role == \"admin\"  } do\n    root to: \"admin#dashboard\"\n  end\n```\n\nEach of these is something pretty easily understood, and would provide a bit of clarity to the routes, and clean up any before_filters that you would use instead.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.3,
+                "sentence": "I've already got a start on an implementation of this, but wanted to know if this makes sense, or maybe there is already a way to do this with Devise as it stands.",
+                "plan": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 6345564,
+                "user": {
+                    "login": "josevalim"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Yes, this looks great and makes sense for `authenticate(d)`.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 1922
+            },
+            {
+                "id": 6349685,
+                "user": {
+                    "login": "excid3"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Is there a test for ```authenticate(d)``` I could use as a basis for testing these?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "And how does the implementation look?",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 3.3,
+                        "sentence": "Anything I should clean up?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.4,
+                        "sentence": "Thanks!",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1922
+            },
+            {
+                "id": 6352477,
+                "user": {
+                    "login": "josevalim"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "The implementation looks good, but could you please use (`&&` and `||`) instead of `and` and `or`?",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 4.2,
+                        "sentence": "About the tests, you will need to define new routes here:\n\nhttps://github.com/plataformatec/devise/blob/master/test/rails_app/config/routes.rb\n\nAnd then add new tests for these routes inside this test case (where we keep tests for authenticated, unauthenticated, and so on):\n\nhttps://github.com/plataformatec/devise/blob/master/test/integration/authenticatable_test.rb#L137",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 1922
+            },
+            {
+                "id": 6362987,
+                "user": {
+                    "login": "excid3"
+                },
+                "body": [
+                    {
+                        "sentence_id": 5.1,
+                        "sentence": "Thanks Jos\u00e9!",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 5.2,
+                        "sentence": "I added some tests and changed to the boolean logic like you mentioned.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 5.3,
+                        "sentence": "Anything else?",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1922
+            },
+            {
+                "id": 6363184,
+                "user": {
+                    "login": "josevalim"
+                },
+                "body": [
+                    {
+                        "sentence_id": 6.1,
+                        "sentence": "Meeeeeeerged, thanks!",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1922
+            },
+            {
+                "id": 6363637,
+                "user": {
+                    "login": "excid3"
+                },
+                "body": [
+                    {
+                        "sentence_id": 7.1,
+                        "sentence": ":+1:",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1922
+            }
+        ]
+    },
+    {
+        "id": 4811835,
+        "title": "use the same logic for selecting extra attributes in addSbtPlugin as in pluginProjectId",
+        "user": {
+            "login": "jrudolph"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "This enables us to use the same plugins.sbt in projects for release and\npre-release versions of sbt.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "Right now you have to use\n\n    addSbtPlugin(org % name % version, sbtVersion = \"0.12.0-Beta2\")\n\nto suport add a plugin for the beta version of sbt.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.3,
+                "sentence": "This, however, means you have to update your scripted tests for each (pre-) release version of sbt to find the plugin you are testing.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.4,
+                "sentence": "With this change the declaration stays\n\n     addSbtPlugin(org % name % version)\n\nregardless of the sbt version you are using.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.5,
+                "sentence": "This is a follow-up to https://groups.google.com/d/msg/simple-build-tool/hIcElXd38xw/nn1muiC6yfEJ",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 6025363,
+                "user": {
+                    "login": "harrah"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Merged in https://github.com/harrah/xsbt/commit/8f14df193062e079f0caee43dbd586256ae43e76",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 470
+            },
+            {
+                "id": 6056416,
+                "user": {
+                    "login": "jrudolph"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Thanks, Mark.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 470
+            }
+        ]
+    },
+    {
+        "id": 8419667,
+        "title": "jemalloc: make  pprof opt-in",
+        "user": {
+            "login": "humdedum"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "pprof needs to be opt-in as it is supposed to be installed by google-perftools so there is no need for `conflicts_with`.",
+                "plan": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 10476822,
+                "user": {
+                    "login": "jacknagel"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "The fact that it conflicts with another formulae isn't a good reason to just remove a tool.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "What if someone wants to use it?",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 2.3,
+                        "sentence": "We have a `conflicts_with` DSL field that can be used to annotate and warn users of these conflicts.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 16109
+            },
+            {
+                "id": 10476875,
+                "user": {
+                    "login": "humdedum"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "What if you want to have two of them installed at the same time ?",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 16109
+            },
+            {
+                "id": 10477448,
+                "user": {
+                    "login": "jacknagel"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "The user is advised to unlink one of them when installing the other.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 16109
+            },
+            {
+                "id": 10477480,
+                "user": {
+                    "login": "humdedum"
+                },
+                "body": [
+                    {
+                        "sentence_id": 5.1,
+                        "sentence": "Then doctor complains that you have unlinked kegs.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 16109
+            },
+            {
+                "id": 10696443,
+                "user": {
+                    "login": "humdedum"
+                },
+                "body": [
+                    {
+                        "sentence_id": 6.1,
+                        "sentence": "On Nov 25, 2012, at 9:45 AM, Stefan wrote:\r\n> Is there a reason why you are repackaging pprof, isn't it supposed to come with gperftools ?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 6.2,
+                        "sentence": "On Nov 25, 2012, at 7:15 PM, Jason Evans wrote:\r\n> The heap profiling functionality in jemalloc isn't very useful without pprof.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 6.3,
+                        "sentence": "Also, when I first added heap profiling to jemalloc, there was a critical bug in pprof that remained unfixed for quite some time (IIRC, more than six months, across two releases).",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 6.4,
+                        "sentence": "At the time, I had little choice but to package a patched pprof, and even when patches aren't necessary, I think it's a good idea to provide pprof with jemalloc.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 6.5,
+                        "sentence": "however, I'm open to naming it something else to avoid packaging conflicts.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 6.6,
+                        "sentence": "Any suggestions?",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 6.7,
+                        "sentence": "pprof-jemalloc is cumbersome, jeprof strikes me as presumptuous (though it matches the default prefix for the files jemalloc outputs), and that's about the extent of my naming creativity.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 16109
+            },
+            {
+                "id": 10696478,
+                "user": {
+                    "login": "humdedum"
+                },
+                "body": [
+                    {
+                        "sentence_id": 7.1,
+                        "sentence": "I could also rename it as `jemalloc-pprof` instead as it might happen upstream too.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 16109
+            },
+            {
+                "id": 10696892,
+                "user": {
+                    "login": "adamv"
+                },
+                "body": [
+                    {
+                        "sentence_id": 8.1,
+                        "sentence": "Ok, let's install it with a rename and remove the conflicts-with.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 8.2,
+                        "sentence": "Thanks for following up here.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 16109
+            },
+            {
+                "id": 10696985,
+                "user": {
+                    "login": "humdedum"
+                },
+                "body": [
+                    {
+                        "sentence_id": 9.1,
+                        "sentence": "updated.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 9.2,
+                        "sentence": "`jemalloc-pprof`, `pprof-jemalloc` would one be preferable over other one ?",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 16109
+            },
+            {
+                "id": 10696998,
+                "user": {
+                    "login": "adamv"
+                },
+                "body": [
+                    {
+                        "sentence_id": 10.1,
+                        "sentence": "`jemalloc-pprof`",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 16109
+            }
+        ]
+    },
+    {
+        "id": 7837369,
+        "title": "iTerm2: irssi in tmux remote over mosh leaves artifacts",
+        "user": {
+            "login": "ChrisBuchholz"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "I'm running irssi inside tmux on a remote server which I connect to via mosh, but it keeps leaving artifacts around or, in other words - not update the whole buffer.",
+                "planw": 1
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "The most noticable and ever repeating mishappen is, the whole buffer, containing irssi, resonates static, and only the single last line keeps updating as new messages are posted to the current channel.",
+                "planw": 1
+            },
+            {
+                "sentence_id": 1.3,
+                "sentence": " Here is a typescript of a terminal session where this happens: https://dl.dropbox.com/u/168187/irssiresonatesstatic\r\n\r\nAnd here is screenshot of a irssi session: https://dl.dropbox.com/u/168187/first.png\r\nAnd here it is where the last line has updated, but the rest of the buffer has not: https://dl.dropbox.com/u/168187/second.png",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 9752143,
+                "user": {
+                    "login": "keithw"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Does this happen with irssi directly inside mosh (no tmux)?",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 341
+            },
+            {
+                "id": 9752208,
+                "user": {
+                    "login": "keithw"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "And could you please upgrade mosh-server and mosh-client to 1.2.3 and see if you still have the problem?",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "The trace output indicates that mosh-server is version 1.1.3 or earlier.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 341
+            },
+            {
+                "id": 9755614,
+                "user": {
+                    "login": "ChrisBuchholz"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "Nope, it works perfectly if not using tmux.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 4.2,
+                        "sentence": "Thats good to know.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 4.3,
+                        "sentence": "Also, my package manager says I have 1.2.3 installed.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 341
+            },
+            {
+                "id": 9755705,
+                "user": {
+                    "login": "keithw"
+                },
+                "body": [
+                    {
+                        "sentence_id": 5.1,
+                        "sentence": "scootserv's `mosh-server` appears to be 1.1.3 or earlier, based on the \"mosh-server: invalid option -- 'l'\" in the typescript.",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 5.2,
+                        "sentence": "If you run `mosh-server` on scootserv, what version number does it print out?",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 341
+            },
+            {
+                "id": 9755859,
+                "user": {
+                    "login": "ChrisBuchholz"
+                },
+                "body": [
+                    {
+                        "sentence_id": 6.1,
+                        "sentence": "Damn, I didn't think about checking what was installed on my server.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 6.2,
+                        "sentence": "That is indeed 1.1.3.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 6.3,
+                        "sentence": "seems thats the latest available in ubuntu's upstream repository.",
+                        "planw": 1
+                    }
+                ],
+                "issue_id": 341
+            },
+            {
+                "id": 9756349,
+                "user": {
+                    "login": "keithw"
+                },
+                "body": [
+                    {
+                        "sentence_id": 7.1,
+                        "sentence": " Ubuntu doesn't update its software after the release, but 1.2.3 is available in the PPA (directions are on http://mosh.mit.edu).",
+                        "planm": 0
+                    },
+                    {
+                        "sentence_id": 7.2,
+                        "sentence": " (`sudo add-apt-repository ppa:keithw/mosh; sudo apt-get update; sudo apt-get install mosh`)\r\n\r\n1.2.2 is also available in the Ubuntu \"backports\" repository for Ubuntu 12.04 LTS.",
+                        "planm": 0
+                    },
+                    {
+                        "sentence_id": 7.3,
+                        "sentence": "If you still see the problem with 1.2.3, could you please provide a typescript recorded (1) inside the tmux (and outside irssi) (2) inside mosh (and outside tmux) and (3) outside mosh?",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 7.4,
+                        "sentence": "With those three, we should be able to nail down whose bug this is and figure out a fix for you.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 341
+            },
+            {
+                "id": 11932755,
+                "user": {
+                    "login": "HorizonXP"
+                },
+                "body": [
+                    {
+                        "sentence_id": 8.1,
+                        "sentence": "I'd like to pipe in to say that I'm experiencing the same issue with irssi running in Ubuntu's byobu.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 8.2,
+                        "sentence": "I'm running mosh 1.2.3 on both sides of the connection.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 8.3,
+                        "sentence": "Let me know what additional info you need to debug this, and I'll be happy to help.",
+                        "planw": 1
+                    }
+                ],
+                "issue_id": 341
+            },
+            {
+                "id": 11935596,
+                "user": {
+                    "login": "keithw"
+                },
+                "body": [
+                    {
+                        "sentence_id": 9.1,
+                        "sentence": "Hello @HorizonXP -- the same info as we asked for in https://github.com/keithw/mosh/issues/341#issuecomment-9756349 would be much appreciated.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 9.2,
+                        "sentence": "Except I am going to just guess that you are running gnome-terminal as your outer terminal, in which case you are probably seeing a bug in VTE (the outer terminal emulator).",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 9.3,
+                        "sentence": "Are you able to replicate the problem using xterm?",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 341
+            },
+            {
+                "id": 11938688,
+                "user": {
+                    "login": "HorizonXP"
+                },
+                "body": [
+                    {
+                        "sentence_id": 10.1,
+                        "sentence": "Hey @keithw, I'm able to replicate the same problem using xterm.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 10.2,
+                        "sentence": "Also, I'm actually using xfce4-terminal 0.4.8, not gnome-terminal, though they're likely fairly similar.",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 10.3,
+                        "sentence": "I'm unclear about which typescripts you need.",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 10.4,
+                        "sentence": "1) A typescript inside tmux, outside of irssi, of just a shell session?",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 10.5,
+                        "sentence": "Connecting via ssh or mosh?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 10.6,
+                        "sentence": "2) Inside mosh, outside tmux, and inside of irssi?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 10.7,
+                        "sentence": "3) Outside mosh, outside tmux, and inside irsssi?",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 341
+            },
+            {
+                "id": 11939442,
+                "user": {
+                    "login": "keithw"
+                },
+                "body": [
+                    {
+                        "sentence_id": 11.1,
+                        "sentence": "Yes, we want to see the input to tmux, the output of tmux, and the output of mosh.",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 11.2,
+                        "sentence": "(Simultaneously.)",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 341
+            },
+            {
+                "id": 12482201,
+                "user": {
+                    "login": "HorizonXP"
+                },
+                "body": [
+                    {
+                        "sentence_id": 12.1,
+                        "sentence": "Sorry for not replying to this.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 12.2,
+                        "sentence": "I'm sorry, I'm a bit noob-ish.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 12.3,
+                        "sentence": "I'm not sure what exactly you need me to do.",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 12.4,
+                        "sentence": "Am I running the 'script' command?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 12.5,
+                        "sentence": "How exactyl?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 12.6,
+                        "sentence": "Locally or remotely?",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 341
+            },
+            {
+                "id": 12482487,
+                "user": {
+                    "login": "HorizonXP"
+                },
+                "body": [
+                    {
+                        "sentence_id": 13.1,
+                        "sentence": "Ok, i think I have what you need.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 13.2,
+                        "sentence": "Let me know if they help.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 13.3,
+                        "sentence": "http://dl.dropbox.com/u/50184433/typescript_ssh_no_tmux\r\nhttp://dl.dropbox.com/u/50184433/typescript_ssh_yes_tmux\r\nhttp://dl.dropbox.com/u/50184433/typescript_mosh_no_tmux\r\nhttp://dl.dropbox.com/u/50184433/typescript_mosh_yes_tmux",
+                        "planm": 0
+                    }
+                ],
+                "issue_id": 341
+            },
+            {
+                "id": 12615498,
+                "user": {
+                    "login": "eternalsword"
+                },
+                "body": [
+                    {
+                        "sentence_id": 14.1,
+                        "sentence": "For what it's worth, I had this problem in weechat inside tmux without mosh.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 14.2,
+                        "sentence": "What is $TERM inside of tmux?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 14.3,
+                        "sentence": "If it is not a screen variant, you may have issues with redraw in ncurses inside tmux.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 14.4,
+                        "sentence": "If you need $TERM other than a screen variant inside of tmux, try starting irssi with `TERM=screen-256color irssi`.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 14.5,
+                        "sentence": "I use the following function in my zshrc file for calling weechat appropriately.",
+                        "planm": 0
+                    },
+                    {
+                        "sentence_id": 14.6,
+                        "sentence": "```shell\r\nfunction irc () {\r\n\u0099\tif [[ $TMUX = '' ]]; then\r\n\t\tweechat-curses\r\n\telse\r\n\t\tTERM=screen-256color weechat-curses\r\n\tfi\r\n}\r\n```\r\n\r\nThen I just call `irc` from the shell to start weechat.",
+                        "planm": 0
+                    }
+                ],
+                "issue_id": 341
+            },
+            {
+                "id": 12678476,
+                "user": {
+                    "login": "HorizonXP"
+                },
+                "body": [
+                    {
+                        "sentence_id": 15.1,
+                        "sentence": "@eternalsword that completely solved my issue.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 15.2,
+                        "sentence": "Thank you so much for chiming in and pasting that little script.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 341
+            },
+            {
+                "id": 13711933,
+                "user": {
+                    "login": "nyuszika7h"
+                },
+                "body": [
+                    {
+                        "sentence_id": 16.1,
+                        "sentence": "@eternalsword @HorizonXP instead of setting `TERM` when starting irssi or WeeChat, (YOU COULD) add this snippet to your `~/.tmux.conf`:\r\n\r\n```\r\nset -g default-terminal \"screen-256color\"\r\n```\r\n\r\nFor screen, you can add this to your `~/.screenrc`:\r\n\r\n```\r\nterm screen-256color\r\n```\r\n\r\nYou'll also need to make sure your local `TERM` supports 256 colors (e.g.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 16.2,
+                        "sentence": "`xterm-256color`), although that's probably already the case, as the `xterm` + `screen` pair shouldn't cause issues.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 16.3,
+                        "sentence": "you can use this snippet to check if your `TERM` supports 256 colors:\r\n\r\n```bash\r\n#!/bin/bash\r\n\r\necho \"TERM is set to ${TERM}.\"",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 16.4,
+                        "sentence": "echo -n 'COLORTERM is '\r\n[ -n \"$COLORTERM\" ] && echo \"set to ${COLORTERM}.\"",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 16.5,
+                        "sentence": "|| echo 'not set.'",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 16.6,
+                        "sentence": "echo \"Colors: $(tput colors)\"\r\n```",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 341
+            }
+        ]
+    },
+    {
+        "id": 3794220,
+        "title": "Remove stray commas when default transition properties are used",
+        "user": {
+            "login": "doctyper"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "resolves issue #805.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "test case Included.",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Empty",
+                        "plan": 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": 733035,
+        "title": "bump pure to version 0.47",
+        "user": {
+            "login": "howthebodyworks"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "updates to pure version 0.47.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "The --without-elisp flag was added; otherwise it attempts to install elisp extensions to the system elisp (they didn't seem to exist in 0.46).",
+                "plan": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 957420,
+                "user": {
+                    "login": "adamv"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Pulled as c97fa3016190f1a8332b4e9563d6b012f1ecfe81",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 5039
+            }
+        ]
+    },
+    {
+        "id": 16950222,
+        "title": "New insight: Interaction Graph",
+        "user": {
+            "login": "nilakshdas"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "This insight aims to help users determine their most engaging connections on social networks and give them an overview of their interactions with other people/topics over a week.",
+                "planw": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 21631683,
+                "user": {
+                    "login": "ginatrapani"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Looking good!",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "When you add your insight tests, reopen the pull request and I'll merge.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1649
+            },
+            {
+                "id": 21830829,
+                "user": {
+                    "login": "ginatrapani"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "How are the tests coming along on this one, Nilaksh?",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1649
+            },
+            {
+                "id": 21835737,
+                "user": {
+                    "login": "nilakshdas"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "Hi Gina.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 4.2,
+                        "sentence": "added the tests... Really sorry for the delay!",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1649
+            }
+        ]
+    },
+    {
+        "id": 3074050,
+        "title": "Source/Github dependency on a plugin gives an  NPE, while file dependency of the same code works fine.",
+        "user": {
+            "login": "max-l"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "\r\n\r\nLaunching SBT in a project with a Source/Github dependency on this plugin https://github.com/max-l/pegdown-sbt\r\ngives an  NPE, while file dependency of the same code (plugin) works fine.",
+                "planm": 0
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "Steps to reproduce : https://groups.google.com/d/topic/simple-build-tool/z5-YUQEuoqE/discussion",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 5294763,
+                "user": {
+                    "login": "harrah"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "works for me.",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "I would need to see the stack trace to see if there is an actual problem.",
+                        "planw": 1
+                    }
+                ],
+                "issue_id": 352
+            }
+        ]
+    },
+    {
+        "id": 1411857,
+        "title": "Mentioning an user with two_underscores_in the handler causes Routing error",
+        "user": {
+            "login": "vcuculo"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "When mentioning an user with two or more underscores in the handler, markdownify replaces such underscores with \\<em\\>, causing a wrong user address as \"/u/cicciu\\<em\\>u\\</em\\>svizzianu\"",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 1821044,
+                "user": {
+                    "login": "rsofaer"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Another argument for taking out markdown, IMO.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1776
+            },
+            {
+                "id": 1821201,
+                "user": {
+                    "login": "MrZYX"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Without replacement?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "No way, IMO.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1776
+            },
+            {
+                "id": 3475594,
+                "user": {
+                    "login": "sarahmei"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "I think this has been fixed.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "(P) If you see it again, please open a new issue.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Thanks!",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1776
+            }
+        ]
+    },
+    {
+        "id": 9869835,
+        "title": "increase .Net client DefaultConnectionLimit",
+        "user": {
+            "login": "Xiaohongt"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "(W) currently in .Net client it uses ServicePointManager.DefaultConnectionLimit default value which is 2.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "(W) When .Net client app creates 2 connections with SSE or longPolling transport, the 2 connections can't send message.",
+                "planw": 1
+            },
+            {
+                "sentence_id": 1.3,
+                "sentence": "(W) probably set DefaultConnectionLimit = 20 by default in .Net client?",
+                "plan": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 12132817,
+                "user": {
+                    "login": "davidfowl"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Moving to post RTW",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1300
+            },
+            {
+                "id": 19959804,
+                "user": {
+                    "login": "davidfowl"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "(P) Don't need to do this anymore since we've resolved the request queuing problem.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 1300
+            }
+        ]
+    },
+    {
+        "id": 716052,
+        "title": "Rename configuration name templates_dir to templates.path",
+        "user": {
+            "login": "jrivero"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "(P) I think the variable name templates_dir is incorrect because the others use a clearly identifiable pattern that uses the dot.",
+                "planw": 1
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "(P) My suggestion is: \"templates.path\"\r\n\r\nother similar configuration names -found-:\r\n- cookies.path\r\n- log.path",
+                "plan": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 933866,
+                "user": {
+                    "login": "codeguy"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "(W) Yeah I agree.",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "\"templates_dir\" is a vestige from 1.0.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 118
+            },
+            {
+                "id": 933884,
+                "user": {
+                    "login": "jrivero"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "(W) I Know :)\r\n\r\nfailed other names that do not like me too... examples:\r\n\r\non view object, the methods setData and appendData: may set or append anything other than \"data\"?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "is redundant, do not you think?",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 118
+            },
+            {
+                "id": 933887,
+                "user": {
+                    "login": "codeguy"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "Yep.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 4.2,
+                        "sentence": "Can certainly be trimmed down.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 4.3,
+                        "sentence": "(P) want to open another issue for that?",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 118
+            },
+            {
+                "id": 933930,
+                "user": {
+                    "login": "jrivero"
+                },
+                "body": [
+                    {
+                        "sentence_id": 5.1,
+                        "sentence": "ok",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 118
+            },
+            {
+                "id": 934161,
+                "user": {
+                    "login": "codeguy"
+                },
+                "body": [
+                    {
+                        "sentence_id": 6.1,
+                        "sentence": "I have renamed \"templates_dir\" to \"templates.path\" in 1.3.2",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 118
+            },
+            {
+                "id": 935184,
+                "user": {
+                    "login": "jrivero"
+                },
+                "body": [
+                    {
+                        "sentence_id": 7.1,
+                        "sentence": "Thanks!",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 118
+            }
+        ]
+    },
+    {
+        "id": 14625396,
+        "title": "Media Queries Issue",
+        "user": {
+            "login": "programmingnerd"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "I'm having an issue with media queries using -found-ation 4.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "Basically, my code is firing when the screen resolution is 687px and not at 768px (as set by -found-ation 4 in SASS).",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.3,
+                "sentence": "(W) here is my code below:\r\n\r\n    @media #{$small} {\r\n\t    html {\r\n\t\t    background: red;\r\n\t    }\r\n    }\r\n\r\nWhy is this happening?",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.4,
+                "sentence": "(P) I've also trued to do the following on a different occasion where I only want the query to fire beyond 480px, but it's firing at 430px:\r\n\r\n    @media screen and (min-width: 480px) {\r\n        html {\r\n            background: red;\r\n        }\r\n    }\r\n\r\nAny ideas why this is so?",
+                "planw": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 18842008,
+                "user": {
+                    "login": "xstortionist"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "(W) What app are you using to test responsive design?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "(P) It may be noting that you need to check the window height as well as window width.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 2.3,
+                        "sentence": "(P) Go to window width \"480px\" and then shrink the window height and it should fire correctly.",
+                        "planm": 0
+                    }
+                ],
+                "issue_id": 2428
+            },
+            {
+                "id": 19295659,
+                "user": {
+                    "login": "programmingnerd"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "(P) just to add, this was an error on my part and I apologise for creating an Issue.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "(P) What had happened was at some point in the day I had pressed CMD and - to make  my screen smaller by mistake.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 3.3,
+                        "sentence": "I was then assuming everything was normal.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.4,
+                        "sentence": "It took me a good 5+ hours to figure this out.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.5,
+                        "sentence": "Sorry for not responding sooner.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 2428
+            }
+        ]
+    },
+    {
+        "id": 2147237,
+        "title": "support for upgrading an existing extension in a project",
+        "user": {
+            "login": "coderanger"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "Something like `compass upgrade foo` maybe?",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 3741760,
+                "user": {
+                    "login": "chriseppstein"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Can't you just `compass init foo --force`?",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 612
+            },
+            {
+                "id": 7592019,
+                "user": {
+                    "login": "hatefulcrawdad"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "We're experiencing a similar issue and I'm not sure if its lack of knowledge or that it isn't possible.",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "here's an example: Let's say someone creates a project using zurb--found-ation extension and we do some upgrades to the a javascript file or even to the _settings.scss folder.",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 3.3,
+                        "sentence": "If they want to latest and greatest they would run `compass create -r zurb--found-ation --using -found-ation` but that won't actually overwrite anything.",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 3.4,
+                        "sentence": "If they add `--force` to the end then it overrides, but deletes content they may have changed already or added.",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 3.5,
+                        "sentence": "Is there a way to upgrade and only add things that are different or new without overriding things that might have been changed by the user?",
+                        "planw": 1
+                    }
+                ],
+                "issue_id": 612
+            },
+            {
+                "id": 7594226,
+                "user": {
+                    "login": "chriseppstein"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "@zurbchris In an existing project you'll want to use `init` insteadof `create`.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 4.2,
+                        "sentence": "We could add a feature where files to be added that conflict with existing files, would just add a renamed version alongside the existing one.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 4.3,
+                        "sentence": "this would be a new feature though.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 612
+            },
+            {
+                "id": 7598253,
+                "user": {
+                    "login": "hatefulcrawdad"
+                },
+                "body": [
+                    {
+                        "sentence_id": 5.1,
+                        "sentence": "I tried init and it didn't do what I was expecting.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 5.2,
+                        "sentence": "We -found- a good solution though by creating a pattern within the extension that only contains the JS and image files.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 5.3,
+                        "sentence": "If people already have a -found-ation project going they can just run create and pull down that pattern, which will overwrite only the JS/images.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 5.4,
+                        "sentence": "Thanks for the quick response!",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 612
+            },
+            {
+                "id": 7598618,
+                "user": {
+                    "login": "chriseppstein"
+                },
+                "body": [
+                    {
+                        "sentence_id": 6.1,
+                        "sentence": "I like that approach for now.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 612
+            }
+        ]
+    },
+    {
+        "id": 19526163,
+        "title": "Redact v8 from core",
+        "user": {
+            "login": "adamv"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "see: #22572\r\n\r\nV8 updates very often, and frequently breaks downstream consumers that don't peg themselves to a known good version.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "We've previously removed things that depend on V8 from Homebrew-core.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.3,
+                "sentence": "Things like Node and ArrangoDB that use V8 package their own known versions.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.4,
+                "sentence": "suggest we remove V8 from core and blacklist, but carry it in the head-only repo (since people will keep asking for it back probably.)",
+                "planw": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 24480156,
+                "user": {
+                    "login": "jacknagel"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "I don't feel good about removing things just because our relentless march forward on versions make s them unstable.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "I'd rather just not update it as often.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 22574
+            },
+            {
+                "id": 24480911,
+                "user": {
+                    "login": "mikemcquaid"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "I'm with Jack here.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 22574
+            },
+            {
+                "id": 24481082,
+                "user": {
+                    "login": "adamv"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "Ok.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 22574
+            }
+        ]
+    },
+    {
+        "id": 5198870,
+        "title": "allow horizontal scrolling when necessary",
+        "user": {
+            "login": "jvilalta"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "We have very long URLs so whenever the profiler information pops up it is off to the right and can't be seen unless horizontal scrolling is allowed .",
+                "planm": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 7085405,
+                "user": {
+                    "login": "SamSaffron"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "oops ...",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "I left this a real long time, are we sure there are no ui side effects here?",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 47
+            },
+            {
+                "id": 7085405,
+                "user": {
+                    "login": "jvilalta"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "We've been running a version with this change for a while and AFAIK this CSS change only affects that one window by adding scroll bars to the DIV.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 47
+            }
+        ]
+    },
+    {
+        "id": 17906382,
+        "title": "vim 7.4 is released!",
+        "user": {
+            "login": "telemachus"
+        },
+        "body": [
+            {
+                "sentence_id": 4.1,
+                "sentence": "update to Vim 7.4.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 4.2,
+                "sentence": "I removed the `devel` block and left a note about returning to tracking Debian unstable once patches start up again.",
+                "planw": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 22450647,
+                "user": {
+                    "login": "jacknagel"
+                },
+                "body": [
+                    {
+                        "sentence_id": 5.1,
+                        "sentence": "Build status isn't updating but it did pass.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 21809
+            },
+            {
+                "id": 22450681,
+                "user": {
+                    "login": "dplarson"
+                },
+                "body": [
+                    {
+                        "sentence_id": 6.1,
+                        "sentence": ":metal:",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 21809
+            }
+        ]
+    },
+    {
+        "id": 9481621,
+        "title": "Window hint isn't being set to float",
+        "user": {
+            "login": "berle"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "I use the i3 window manager where windows are tiled instead of floated by default.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "The way the window manager decides which windows should float and which should tile, is to look at the hints set by the application so that if a window really needs to float for whatever reason, it gets to do that.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.3,
+                "sentence": "The SparkleShare GUI looks really, really bad when it gets tiled, I'm almost certain it's intended to float, however the application doesn't set the appropriate hint to tell the wm this by default, this should probably be fixed.",
+                "plan": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 11635617,
+                "user": {
+                    "login": "hbons"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "do you know what this hint is and how to set it?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "i've never heard of this window manager before.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1120
+            },
+            {
+                "id": 11636078,
+                "user": {
+                    "login": "berle"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Hmm, I think it is _NET_WM_WINDOW_TYPE_DIALOG mentioned in http://standards.freedesktop.org/wm-spec/latest/ar01s05.html that would be the correct hint to set.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 1120
+            },
+            {
+                "id": 11810368,
+                "user": {
+                    "login": "hbons"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "you mentioned on IRC that the fix on the i3fix branch works.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 4.2,
+                        "sentence": "i've applied it to the about dialog now as well.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 4.3,
+                        "sentence": "i'll close this issue now and will merge the branch when i have access to my Linux box again.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1120
+            }
+        ]
+    },
+    {
+        "id": 1640309,
+        "title": "Clear cache before of each precompile to avoid inconsistencies. fixes #3014",
+        "user": {
+            "login": "guilleiguaran"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "Clear cache before of each precompile to avoid inconsistencies.",
+                "planm": 0
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "fixes #3014",
+                "plan": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 2094938,
+                "user": {
+                    "login": "josevalim"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Please pull request for 3-1-stable as well?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": ":D",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 3015
+            },
+            {
+                "id": 2094943,
+                "user": {
+                    "login": "josevalim"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Nah, don't worry.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "Pastorino is backporting it :)",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 3015
+            }
+        ]
+    },
+    {
+        "id": 401279,
+        "title": "Error building lilypond 2.13.36",
+        "user": {
+            "login": "cayblood"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "I have a configure error when I try to install lilypond.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "It looks like it is missing some font related tools called metafont and metapost:\r\n\r\nhttps://gist.github.com/663255",
+                "planm": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 518645,
+                "user": {
+                    "login": "adamv"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "You need to install TeX first: http://www.tug.org/mactex/",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 3075
+            },
+            {
+                "id": 522091,
+                "user": {
+                    "login": "cayblood"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Thanks.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "Installed mactex, now I'm getting an error during lilypond make :\n\n<pre>\n Traceback (most recent call last):\n   File \"/private/tmp/homebrew-lilypond-2.13.36-kkPm/lilypond- 2.13.36/stepmake /bin/install.py\", line 78, in <module> \n    shutil.copy2 (f, dest)\n   File  \"/System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/shutil.py\", line 99, in copy2\n    copyfile(src, dst)\n  File \"/System/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/shutil.py\", line 52, in copyfile\n    fsrc = open(src, 'rb')\n IOError: [Errno 2] No such file or directory: './out/emmentaler-11.woff'\n make [1]: *** [local-install-outfiles] Error 1\n make : *** [install] Error 2\n Exit status: 2\n</pre>\n\nI'll try to post more info soon, but in the mean time I just wanted to post this in case you already have an idea what might be wrong.",
+                        "planm": 1
+                    }
+                ],
+                "issue_id": 3075
+            },
+            {
+                "id": 559900,
+                "user": {
+                    "login": "briansniffen"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Turns out the WOFF files are never built, because the fontforge that ships in homebrew today (fontforge 20100501) emits this message when asked to build them:\r\n\r\n    This version of fontforge cannot handle WOFF files.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "You need to recompile it with libpng and zlib",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 3075
+            },
+            {
+                "id": 630915,
+                "user": {
+                    "login": "briansniffen"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "patched at https://github.com/mxcl/homebrew/pull/3692",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 3075
+            },
+            {
+                "id": 817356,
+                "user": {
+                    "login": "cayblood"
+                },
+                "body": [
+                    {
+                        "sentence_id": 5.1,
+                        "sentence": "I'm still getting this error after updating homebrew.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 5.2,
+                        "sentence": "Any ideas?",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 3075
+            },
+            {
+                "id": 838739,
+                "user": {
+                    "login": "adamv"
+                },
+                "body": [
+                    {
+                        "sentence_id": 6.1,
+                        "sentence": "updated to Lilypond 2.13.52; fontforge is now at 20110222.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 6.2,
+                        "sentence": "Lillypond built OK for me / MacTeX light.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 3075
+            }
+        ]
+    },
+    {
+        "id": 1187060,
+        "title": "\"more\" button at the end of the stream should not show if there are no more posts",
+        "user": {
+            "login": "diaspora-redmine-github-migration"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "Issue 842 from bugs.joindiaspora.com\ncreated by: **dangold1138**\nOn Thu Jan 27 02:17:28 2011\n\n*Priority: Normal*\n*Status: fixed*",
+                "plan": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 1528890,
+                "user": {
+                    "login": "diaspora-redmine-github-migration"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Comment by: **darky**\nOn Mon Jan 31 16:45:24 2011\n\nWill be commited in a few minutes.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1242
+            },
+            {
+                "id": 1528891,
+                "user": {
+                    "login": "diaspora-redmine-github-migration"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Comment by: **darky**\nOn Mon Jan 31 16:47:01 2011\n\nnevermind.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "is just a fix to prevent the more button to be display if there are less than 15 posts in the stream.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 1242
+            },
+            {
+                "id": 1528892,
+                "user": {
+                    "login": "diaspora-redmine-github-migration"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "Comment by: **marc**\nOn Tue Feb 22 07:46:55 2011\n\nI think that's already implemented",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1242
+            },
+            {
+                "id": 1528893,
+                "user": {
+                    "login": "diaspora-redmine-github-migration"
+                },
+                "body": [
+                    {
+                        "sentence_id": 5.1,
+                        "sentence": "Comment by: **adept**\nOn Tue May 24 02:24:41 2011\n\nI'm changing this to fixed, it's been sitting here for a long time.",
+                        "planm": 0
+                    },
+                    {
+                        "sentence_id": 5.2,
+                        "sentence": "just now I created an aspect and threw a couple of short posts up on it.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 5.3,
+                        "sentence": "The posts don't fill up the window by even half.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 5.4,
+                        "sentence": "There is no \"More\" button.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 5.5,
+                        "sentence": "in fact, at least on my platform/browser I never see the More button any more, the simple action of scrolling adds more posts to the window.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 5.6,
+                        "sentence": "therefore I think this bug report is obsolete.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 1242
+            }
+        ]
+    },
+    {
+        "id": 4338374,
+        "title": "\"I'm over 18\" not visible when combining subreddits if one subreddit is NSFW.",
+        "user": {
+            "login": "benjick"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "No posts from the NSFW subreddit is shown, only from the \"non-NSFW\".",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "If combining only NSFW there is no posts to show.",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 20638059,
+                "user": {
+                    "login": "andre-d"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Can be closed",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 430
+            }
+        ]
+    },
+    {
+        "id": 3038516,
+        "title": "Rollback of database transactions should suport multiple databases",
+        "user": {
+            "login": "whamilton42"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "This issue is still live:\r\n\r\nhttps://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/3550\r\n\r\nThe patch supplied there works fine on 3.1.3.",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 3743228,
+                "user": {
+                    "login": "tenderlove"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "I think the patch seems fine.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "Can you open a pull request with that patch?",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 4801
+            },
+            {
+                "id": 3848107,
+                "user": {
+                    "login": "whamilton42"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "actually, this seems to have been fixed here:\r\n\r\nhttps://github.com/rails/rails/commit/999b7ed94d7d7f993cded7376fc4014128d43294#activerecord/lib/active_record/fixtures.rb",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 4801
+            },
+            {
+                "id": 3848641,
+                "user": {
+                    "login": "arunagw"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "@whamilton42 if it's fixes can this be closed?",
+                        "planw": 1
+                    }
+                ],
+                "issue_id": 4801
+            }
+        ]
+    },
+    {
+        "id": 11791900,
+        "title": "SI-7228, bug in subtyping.",
+        "user": {
+            "login": "paulp"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "make  isWeakSubType more frequently correct.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "Simplify widening logic.",
+                "planm": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 14602870,
+                "user": {
+                    "login": "paulp"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": " Review by @retronym.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 2215
+            },
+            {
+                "id": 14817853,
+                "user": {
+                    "login": "paulp"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "We will also most likely accept reviews by @adriaanm or @JamesIry.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 2215
+            }
+        ]
+    },
+    {
+        "id": 3983635,
+        "title": "Added missing function declaration",
+        "user": {
+            "login": "saghul"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "fixes compilation warning about uv__udp_finish_close being implicitly declared.",
+                "plan": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 4988045,
+                "user": {
+                    "login": "bnoordhuis"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Thanks Sa\u00fal, merged in e3468e9.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 371
+            }
+        ]
+    },
+    {
+        "id": 724437,
+        "title": "[AsseticBundle] fixed definition of filter configs",
+        "user": {
+            "login": "kriswallsmith"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "fixed filter configuration.",
+                "plan": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 945889,
+                "user": {
+                    "login": "kriswallsmith"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "closing this for now -- there are more fixes",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 454
+            }
+        ]
+    },
+    {
+        "id": 11106016,
+        "title": "Memory Optimization page, discussion on hashes needs to be edited",
+        "user": {
+            "login": "arieljake"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "http://redis.io/topics/memory-optimization\r\n\r\nIs there anyone associated with this project who understands Redis well who can run through the section called 'Using hashes to abstract a very memory efficient plain key-value store on top of Redis' who can make  it a little easier to read?",
+                "planm": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 13714560,
+                "user": {
+                    "login": "antirez"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Hello, please could you specify what sections are the most hard to read?",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "Also note that:\r\n\r\n* Here you can find an alternative description of the same idea: http://instagram-engineering.tumblr.com/post/12202313862/storing-hundreds-of-millions-of-simple-key-value-pairs\r\n* This is not the right place where to post this issue as this is not a problem with the Redis server.",
+                        "planm": 0
+                    },
+                    {
+                        "sentence_id": 2.3,
+                        "sentence": "The right repository is redis-doc.",
+                        "planm": 0
+                    },
+                    {
+                        "sentence_id": 2.4,
+                        "sentence": "Closing because of the wrong repository, I'll appreciate a description of what to improve as a redis-doc issue.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 953
+            }
+        ]
+    },
+    {
+        "id": 2890602,
+        "title": "New formula: jad 1.5.8",
+        "user": {
+            "login": "actuosus"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "Jad (JAva Decompiler) is a decompiler for the Java programming language.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "Unmaintained but very useful and used by many IDEs.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.3,
+                "sentence": "Available by the <a href=\"http://www.varaneckas.com/jad/\">mirror</a>.",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 3714856,
+                "user": {
+                    "login": "adamv"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "@mistydemeo  @Sharpie @jacknagel suggest putting this in Homebrew-Alt/unmaintained, since it is unmaintained and somewhat binary-only.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 9668
+            },
+            {
+                "id": 3714875,
+                "user": {
+                    "login": "mistydemeo"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "@jacknagel homebrew-alt make s sense since this is binary only.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 9668
+            },
+            {
+                "id": 3808649,
+                "user": {
+                    "login": "adamv"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "Will need to be opened as a pull request in Homebrew-ALT, unmaintained or binary only folder",
+                        "planw": 1
+                    }
+                ],
+                "issue_id": 9668
+            }
+        ]
+    },
+    {
+        "id": 16207707,
+        "title": "! remoting:  EndpointWriter uses mailbox requirements #3480",
+        "user": {
+            "login": "drewhk"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "instead of dispatchers",
+                "planw": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 20278176,
+                "user": {
+                    "login": "patriknw"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "LGTM, only reds -- freakin' awesome",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1578
+            },
+            {
+                "id": 20278297,
+                "user": {
+                    "login": "drewhk"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Yes, thanks to Bj\u00f6rn, who spent all the greens on this ;)",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1578
+            },
+            {
+                "id": 20278935,
+                "user": {
+                    "login": "viktorklang"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "LGTM",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1578
+            },
+            {
+                "id": 20470567,
+                "user": {
+                    "login": "rkuhn"
+                },
+                "body": [
+                    {
+                        "sentence_id": 5.1,
+                        "sentence": "LGTM, please backport to release-2.2",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1578
+            }
+        ]
+    },
+    {
+        "id": 11655838,
+        "title": "update The Silver Searcher to version 0.14.",
+        "user": {
+            "login": "ggreer"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "This release has numerous bug fixes, new features, and performance improvements.",
+                "plan": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 14528590,
+                "user": {
+                    "login": "ggreer"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Thanks!",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 18249
+            }
+        ]
+    },
+    {
+        "id": 12879318,
+        "title": "Allow to set a global request timeout",
+        "user": {
+            "login": "dav3860"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "It is currently possible to set a timeout in each search request (is it possible for facets too ?",
+                "planw": 1
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "but it would be great to be able to set it globally per index or cluster, as a protection against dangerous queries.",
+                "planm": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 19038739,
+                "user": {
+                    "login": "clintongormley"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "closed in favour of #3129",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 2865
+            }
+        ]
+    },
+    {
+        "id": 16185043,
+        "title": "Filter chain halted as :session_scope rendered or redirected",
+        "user": {
+            "login": "simoncorreaocampo"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "Hi and thanks in advance for any help\r\nI'm don't really know if devise is causing this error, it happens only in production when i sign in with any \"user\", it make s my app crash on any method, and on my log i only get this error:\r\n\r\nFilter chain halted as :session_scope rendered or redirected",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 20243765,
+                "user": {
+                    "login": "josevalim"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "You need to give us more information on how to reproduce this issue, otherwise there is nothing we can do.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "Please read CONTRIBUTING.md file for more information about creating bug reports.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 2.3,
+                        "sentence": "Thanks!",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 2482
+            },
+            {
+                "id": 20243772,
+                "user": {
+                    "login": "josevalim"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Btw, unless you have a devise_for :sessions in your router, Devise does not generate any session_scope method, So it likely won't be Devise.",
+                        "planm": 0
+                    }
+                ],
+                "issue_id": 2482
+            }
+        ]
+    },
+    {
+        "id": 2614428,
+        "title": "fix default_i18n_subject comment in ActionMailer::Base",
+        "user": {
+            "login": "indrekj"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "Empty",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 3221962,
+                "user": {
+                    "login": "lest"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Doc changes should go here: http://github.com/lifo/docrails",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 4061
+            },
+            {
+                "id": 3222410,
+                "user": {
+                    "login": "vijaydev"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "@indrekj Hi!",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "You can push doc changes like these in docrails directly from now on.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 3.3,
+                        "sentence": "Thanks.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 4061
+            },
+            {
+                "id": 3222664,
+                "user": {
+                    "login": "indrekj"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "Hi, Sorry.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 4.2,
+                        "sentence": "Didn't know that.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 4.3,
+                        "sentence": "Thanks.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 4061
+            },
+            {
+                "id": 3222802,
+                "user": {
+                    "login": "vijaydev"
+                },
+                "body": [
+                    {
+                        "sentence_id": 5.1,
+                        "sentence": "no problem :)",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 4061
+            }
+        ]
+    },
+    {
+        "id": 122877,
+        "title": "New Forumla: Grails",
+        "user": {
+            "login": "sebr"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "Grails formula here: github.com/sebr/homebrew/commit/dbd4ad59028692eb8620cf90ad085fb653476b33",
+                "planm": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 134460,
+                "user": {
+                    "login": "adamv"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Closing, http://github.com/mxcl/homebrew/issues#issue/720 provides a newer version.",
+                        "planm": 0
+                    }
+                ],
+                "issue_id": 600
+            }
+        ]
+    },
+    {
+        "id": 3024164,
+        "title": "Unexpected destroy scaffold behaviour",
+        "user": {
+            "login": "jamiebuchanan"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "If we had the following in routes.rb\r\n\r\nresources :posts\r\nresources :categories\r\nresources :authors\r\n\r\nand invoked 'rails destroy scaffold category' the following occurs\r\n\r\nresources :posts resources :authors\r\n\r\nThe whitespace/newline issue causes a syntax error in routes.rb\r\n\r\nShould expected behaviour be to retain existing newlines and whitespace?",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 3724583,
+                "user": {
+                    "login": "tycooon"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "+1 noticed this thing too",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 4764
+            }
+        ]
+    },
+    {
+        "id": 2248399,
+        "title": "ADOL-C is an open-source package for the automatic differentiation of C and C++ programs.",
+        "user": {
+            "login": "brada"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "Empty",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 2750547,
+                "user": {
+                    "login": "brada"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Can someone please explain how to create separate pull requests for each commit to a git noob.",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "I added, committed, pushed and opened separate pull requests for colpack and adol-c. Why are they both in this request?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.3,
+                        "sentence": "The \"change commits\" button didn't seem to have any way to remove the unwanted file.",
+                        "planw": 1
+                    }
+                ],
+                "issue_id": 8602
+            },
+            {
+                "id": 2750666,
+                "user": {
+                    "login": "mistydemeo"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "The pull request will pull in any commits from the branch you pushed them to.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "If you create separate branches for each pull request, you can limit the commits that end up in your requests more easily.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 8602
+            },
+            {
+                "id": 2751188,
+                "user": {
+                    "login": "brada"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "Ok thanks.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 4.2,
+                        "sentence": "I'll do that.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 8602
+            }
+        ]
+    },
+    {
+        "id": 17368935,
+        "title": "Make autotools build system work with MinGW",
+        "user": {
+            "login": "loladiro"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "Extracted from https://github.com/JuliaLang/libuv/tree/julia-uv0.10.13",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 21758673,
+                "user": {
+                    "login": "Nodejs-Jenkins"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Thank you for contributing this pull request!",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "Here are a few pointers to make sure your submission will be considered for inclusion.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 2.3,
+                        "sentence": "Commit loladiro/libuv@c67e55ee15009b6d5524302cf5cd6db158207956 has the following error(s):\n\n * Commit message must indicate the subsystem this commit changes\n\nYou can fix all these things *without* opening another issue.",
+                        "planm": 0
+                    },
+                    {
+                        "sentence_id": 2.4,
+                        "sentence": "Please see [CONTRIBUTING.md](https://github.com/joyent/node/blob/master/CONTRIBUTING.md) for more information",
+                        "planm": 0
+                    }
+                ],
+                "issue_id": 867
+            },
+            {
+                "id": 21783166,
+                "user": {
+                    "login": "bnoordhuis"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "The change looks good to me but it seems to break the Solaris / SmartOS build (and the MSVC Windows build but I'm not sure if that's related.)",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "@tjfontaine Can you take a look?",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 867
+            },
+            {
+                "id": 23218923,
+                "user": {
+                    "login": "bnoordhuis"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "Thanks Keno, landed in e52aa6c.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 867
+            },
+            {
+                "id": 21758673,
+                "user": {
+                    "login": "Nodejs-Jenkins"
+                },
+                "body": [
+                    {
+                        "sentence_id": 5.1,
+                        "sentence": "Thank you for contributing this pull request!",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 5.2,
+                        "sentence": "Here are a few pointers to make sure your submission will be considered for inclusion.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 5.3,
+                        "sentence": "Commit loladiro/libuv@c67e55ee15009b6d5524302cf5cd6db158207956 has the following error(s):\n\n * Commit message must indicate the subsystem this commit changes\n\nYou can fix all these things *without* opening another issue.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 5.4,
+                        "sentence": "Please see [CONTRIBUTING.md](https://github.com/joyent/node/blob/master/CONTRIBUTING.md) for more information",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": "867"
+            },
+            {
+                "id": 21783166,
+                "user": {
+                    "login": "bnoordhuis"
+                },
+                "body": [
+                    {
+                        "sentence_id": 6.1,
+                        "sentence": "The change looks good to me but it seems to break the Solaris / SmartOS build (and the MSVC Windows build but I'm not sure if that's related.)",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 6.2,
+                        "sentence": "@tjfontaine Can you take a look?",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": "867"
+            },
+            {
+                "id": 23218923,
+                "user": {
+                    "login": "bnoordhuis"
+                },
+                "body": [
+                    {
+                        "sentence_id": 7.1,
+                        "sentence": "Thanks Keno, landed in e52aa6c.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": "867"
+            }
+        ]
+    },
+    {
+        "id": 12002385,
+        "title": "Update _tables.scss",
+        "user": {
+            "login": "simshaun"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "Require a table to have a class of \"table\" for styling.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "Fixes #1889",
+                "planm": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 14881811,
+                "user": {
+                    "login": "mhayes"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "I'm not quite sure about this PR.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "What's the rationale for not providing any default styles for tables?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.3,
+                        "sentence": "Thanks!",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1890
+            },
+            {
+                "id": 14881836,
+                "user": {
+                    "login": "mhayes"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Sorry just saw the associated issue, will talk with a few others to see if this is something we want to introduce into Foundation.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "Thanks!",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1890
+            },
+            {
+                "id": 15149222,
+                "user": {
+                    "login": "mhayes"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "So after talking with a few other people here we've decided to keep default styles applied to tables in Foundation going forward.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 4.2,
+                        "sentence": "Cheers!",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1890
+            }
+        ]
+    },
+    {
+        "id": 210647,
+        "title": "New formula: portmidi",
+        "user": {
+            "login": "thomasjachmann"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "portmidi is the midi library of portmedia ( http://portmedia.sourceforge.net/ ) - it's audio library is already in homebrew as portaudio\r\n\r\nthe formula for portmidi can be pulled from http://github.com/thomasjachmann/homebrew/commit/2ac982afa1aa0714b4e8f24181519497aed5b307",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 259238,
+                "user": {
+                    "login": "thomasjachmann"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "as suggested by adamv, I've fixed two lines in commit http://github.com/thomasjachmann/homebrew/commit/1a71026af3c32d64f12646f04f63bdbdf8968b27\r\n\r\nCan you pull both commits or should I refork and create a single commit you can then pull?",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 1498
+            },
+            {
+                "id": 259791,
+                "user": {
+                    "login": "0xffea"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "we can pick both commits.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "but i get an error.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.3,
+                        "sentence": "make -f pm_mac/Makefile.osx && make -f pm_mac/Makefile.osx install \r\n    rm -f CMakeCache.txt \r\n    mkdir -p Release\r\n    cd Release; cmake .. -G \"Unix Makefiles\" -DCMAKE_BUILD_TYPE=Release\r\n    CMake Error: The source directory \"/tmp/homebrew-portmidi-200-vLYJ/portmidi\"     does not appear to contain CMakeLists.txt.",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 2.4,
+                        "sentence": "Specify --help for usage, or press the help button on the CMake GUI.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.5,
+                        "sentence": "make: *** [Release/CMakeCache.txt] Error 1\r\n     Error: Directory not empty - /tmp/homebrew-portmidi-200-vLYJ/portmidi",
+                        "planw": 1
+                    }
+                ],
+                "issue_id": 1498
+            },
+            {
+                "id": 259875,
+                "user": {
+                    "login": "thomasjachmann"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "This only happens when installing in verbose mode.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "Without the -v switch, it installs just fine.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 3.3,
+                        "sentence": "I don't know cmake well enough to have any clue what's going wrong here.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.4,
+                        "sentence": "Do you have any suggestions?",
+                        "planw": 1
+                    }
+                ],
+                "issue_id": 1498
+            },
+            {
+                "id": 288763,
+                "user": {
+                    "login": "adamv"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "Added as 84e17f1df681a28a459c4bea697ee7443eea12c3.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1498
+            }
+        ]
+    },
+    {
+        "id": 10506378,
+        "title": "Add support for AWS Credential Providers",
+        "user": {
+            "login": "menno"
+        },
+        "body": [
+            {
+                "sentence_id": 5.1,
+                "sentence": "Since version 1.5.3 of the AWS SDK it supports credential providers [1].",
+                "plan": 1
+            },
+            {
+                "sentence_id": 5.2,
+                "sentence": "These patches allow two new cases of configuring the credentials for S3.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 5.3,
+                "sentence": "1) Via a `:credential_provider` that gets passed to the SDK.",
+                "planm": 0
+            },
+            {
+                "sentence_id": 5.4,
+                "sentence": "2) Not set at all.",
+                "planm": 0
+            },
+            {
+                "sentence_id": 5.5,
+                "sentence": "In this case the SDK will automatically discover credentials.",
+                "planm": 0
+            },
+            {
+                "sentence_id": 5.6,
+                "sentence": "I've also bumped the development dependency of aws-sdk to support these new feature.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 5.7,
+                "sentence": "[1] http://aws.amazon.com/releasenotes/Ruby/0304005114813505",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 12951724,
+                "user": {
+                    "login": "marceldegraaf"
+                },
+                "body": [
+                    {
+                        "sentence_id": 6.1,
+                        "sentence": "+1",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1152
+            },
+            {
+                "id": 12997530,
+                "user": {
+                    "login": "jyurek"
+                },
+                "body": [
+                    {
+                        "sentence_id": 7.1,
+                        "sentence": "I like this, but if the first version to support this was 1.5.3, we should make the gem requirement 1.5.3 or above.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 1152
+            },
+            {
+                "id": 12998706,
+                "user": {
+                    "login": "menno"
+                },
+                "body": [
+                    {
+                        "sentence_id": 8.1,
+                        "sentence": "Fair enough, I'll change that right away.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 8.2,
+                        "sentence": "I was wondering however why you choose to check in your Gemfile.lock?",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 8.3,
+                        "sentence": "My impression was that lockfile shouldn't be present when developing gems [1].",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 8.4,
+                        "sentence": "As a result,with the current lockfile, tests are run against outdated minor versions of Rails and other gems.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 8.5,
+                        "sentence": "[1] http://yehudakatz.com/2010/12/16/clarifying-the-roles-of-the-gemspec-and-gemfile/",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1152
+            },
+            {
+                "id": 12998810,
+                "user": {
+                    "login": "menno"
+                },
+                "body": [
+                    {
+                        "sentence_id": 9.1,
+                        "sentence": "I lowered it to 1.5.7 due to `AWS::Core::CredentialProviders::FakeProvider` being introduced in that version.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1152
+            },
+            {
+                "id": 13252434,
+                "user": {
+                    "login": "jonberke"
+                },
+                "body": [
+                    {
+                        "sentence_id": 10.1,
+                        "sentence": "+1\r\n\r\nI was just about to make this change myself.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 10.2,
+                        "sentence": "Glad to see that someone else already did it.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 10.3,
+                        "sentence": "@jyurek do you have a time frame for when you might have this merged in and a new release available?",
+                        "planw": 1
+                    }
+                ],
+                "issue_id": 1152
+            },
+            {
+                "id": 13290374,
+                "user": {
+                    "login": "jyurek"
+                },
+                "body": [
+                    {
+                        "sentence_id": 11.1,
+                        "sentence": "Well, I just pulled the code into master (thanks, @menno!).",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 11.2,
+                        "sentence": "I'll hopefully cut a new release later today.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1152
+            }
+        ]
+    },
+    {
+        "id": 1033364,
+        "title": "Allow fuzzy ip queries to accept long typed min_similarity values",
+        "user": {
+            "login": "erickt"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "Thought this would be useful since I didn't expect to have to pass ip addresses for the min_similarity.",
+                "plan": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 1338277,
+                "user": {
+                    "login": "kimchy"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "cool, pushed.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 1012
+            }
+        ]
+    },
+    {
+        "id": 13626786,
+        "title": "Avoid expensive permission checks if CMS_VIEW_PERMISSION is False",
+        "user": {
+            "login": "ntucker"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "Conflicts:\r\n\r\n\tcms/models/pagemodel.py\r\n\tcms/utils/conf.py",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 16993917,
+                "user": {
+                    "login": "digi604"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Thank you for the pull request.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "First this would need tests and docs.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 2.3,
+                        "sentence": "Then some fundamental questions:\r\n\r\nDo we need an other setting or is CMS_PERMISSIONS enough and could be used for this?",
+                        "planm": 0
+                    },
+                    {
+                        "sentence_id": 2.4,
+                        "sentence": "If we need an other settings shouldn't this setting disable the ability to set view permissions?",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 1730
+            },
+            {
+                "id": 18180295,
+                "user": {
+                    "login": "yakky"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Separating read-only permissions from write ones could looks like a good idea.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "Not really convinced on the implementation, though",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 1730
+            },
+            {
+                "id": 20821916,
+                "user": {
+                    "login": "digi604"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "Yep implementation is lacking.",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 4.2,
+                        "sentence": "will close for now as there is an other pull request that simplifies the permission checking.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 1730
+            }
+        ]
+    },
+    {
+        "id": 18469789,
+        "title": "Dropdown/Reveal Bug",
+        "user": {
+            "login": "kyledecot"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "When clicking a link inside of a dropdown that triggers a reveal dialog you get some unexpected results as you can see in the screenshot\r\n\r\n!",
+                "planw": 1
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "[screen shot 2013-08-23 at 9 20 59 am](https://f.cloud.github.com/assets/192464/1016311/001eb882-0bf7-11e3-936c-83a79c7fbfdd.png)",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 23184828,
+                "user": {
+                    "login": "zurbrandon"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "We're working on a fix right now, but in the mean time you can fix it in css by changing the Z-index on .f-dropdown from 99 to 98.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 3088
+            },
+            {
+                "id": 23184828,
+                "user": {
+                    "login": "zurbrandon"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "We're working on a fix right now, but in the mean time you can fix it in css by changing the Z-index on .f-dropdown from 99 to 98.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": "3088"
+            }
+        ]
+    },
+    {
+        "id": 103293,
+        "title": "New Formula: libtasn",
+        "user": {
+            "login": "afh"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "afh/homebrew@6057e08989c8c3a7370511cbb36ada7d5ba7d35d",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 99700,
+                "user": {
+                    "login": "0xffea"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "+1",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 312
+            }
+        ]
+    },
+    {
+        "id": 2355701,
+        "title": "Stateless authentication broken",
+        "user": {
+            "login": "mlehner"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "I made this patch many months ago for a project I am working on.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "We have been successfully using this patch to allow us to do stateless authentication (no sessions) on a API built using Symfony2.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.3,
+                "sentence": "When disabling sessions support inside config.yml, the Symfony/Component/Security/Http/Firewall/ContextListener does not properly check if a session is available before trying to save to the session inside onKernelResponse.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.4,
+                "sentence": "Adding the check for the session resolves this problem.",
+                "plan": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 2882420,
+                "user": {
+                    "login": "lsmith77"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "if this is a bug fix it should be send to the 2.0 branch",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 2726
+            }
+        ]
+    },
+    {
+        "id": 17666643,
+        "title": " Android keyPressed for volume buttons always sets key = 0",
+        "user": {
+            "login": "nneonneo"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "When a keyPressed event is received for pressing a menu button, the key passed in is always 0.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "This is because event.getUnicodeChar() returns 0 for keys that are not used to type characters, which includes most of the physical keys on a typical touchscreen-based Android phone.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.3,
+                "sentence": "One solution would be to have the Android wrapper define some \"special\" keys (negative numbers to avoid conflicting with Unicode codepoints?",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.4,
+                "sentence": "numbers with a high-ish bit, like bit 28, set?",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.5,
+                "sentence": "), and pass those in when the key is special (volume, home, menu, etc).",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 22162563,
+                "user": {
+                    "login": "bilderbuchi"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "hm, I could swear this issue was already reported (as #2415), but that issue is gone/disappeared!",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "What's going on?",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 2418
+            },
+            {
+                "id": 22162973,
+                "user": {
+                    "login": "nneonneo"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Yeah, sorry, that was me.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "I posted it from the wrong account and had the\r\nissue deleted.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.3,
+                        "sentence": "Robert\r\n\r\n\u5728 2013-8-6\uff0c16:22\uff0cChristoph Buchner <notifications@github.com> \u5199\u9053\uff1a\r\n\r\nhm, I could swear this issue was already reported (as #2415), but that\r\nissue is gone/disappeared!",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.4,
+                        "sentence": "What's going on?",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.5,
+                        "sentence": "\u2014\r\nReply to this email directly or view it on\r\nGitHub<https://github.com/openframeworks/openFrameworks/issues/2418#issuecomment-22162563>\r\n.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 2418
+            },
+            {
+                "id": 22163187,
+                "user": {
+                    "login": "bilderbuchi"
+                },
+                "body": [
+                    {
+                        "sentence_id": 4.1,
+                        "sentence": "I see, thanks.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 2418
+            }
+        ]
+    },
+    {
+        "id": 4089863,
+        "title": "default_scope on create doesn't work in rails 3-1-stable or 3-2-stable",
+        "user": {
+            "login": "pfenig"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "According to the documentation Thing.new and Thing.create should get the default_scope attributes.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "Has this been removed.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.3,
+                "sentence": "I added the following code to the DefaultScopingTest to confirm that it doesn't work.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.4,
+                "sentence": "It worked in rails 3.0\r\n\r\n    def test_default_scope_on_create\r\n      assert_equal 'David', DeveloperCalledDavid.create.name\r\n    end\r\n\r\nI can look into submitting a patch if this is the intended behavior.",
+                "plan": 1
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 5111891,
+                "user": {
+                    "login": "pixeltrix"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "The class you're using in the test defines the default scope using a SQL string and the default scope attributes are only copied when they are defined using a Hash, e.g:\r\n\r\n``` ruby\r\nclass DeveloperCalledDavid < ActiveRecord::Base\r\n  self.table_name = 'developers'\r\n  default_scope where(:name => 'David')\r\nend\r\n```\r\n\r\n``` irb\r\n>> DeveloperCalledDavid.create.name\r\n=> \"David\"\r\n```\r\n\r\nThis was the case even in Rails 3.0.",
+                        "planm": 0
+                    }
+                ],
+                "issue_id": 5825
+            },
+            {
+                "id": 5117620,
+                "user": {
+                    "login": "pfenig"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Ayyy, I'm so sorry.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.2,
+                        "sentence": "I am upgrading my app to rails 3-2 from 3.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.3,
+                        "sentence": "And my records aren't getting their default hash despite using the hash syntax.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.4,
+                        "sentence": "That was just the wrong test case.",
+                        "planw": 1
+                    },
+                    {
+                        "sentence_id": 3.5,
+                        "sentence": "Back to the drawing board....",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 3.6,
+                        "sentence": "It's an issue with squeel 0.9.5.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 5825
+            }
+        ]
+    },
+    {
+        "id": 2421111,
+        "title": "Fix set_fixture_class by fixing create_fixtures",
+        "user": {
+            "login": "alexeymuranov"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "Properly check the `class_names` hash parameter of `create_fixtures` method to not overwrite passed fixture classes.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "This is an update to my previous pull request #3821, it does not seem to fail, but i do not think it is ready.",
+                "plan": 1
+            },
+            {
+                "sentence_id": 1.3,
+                "sentence": "Just for review and comments.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.4,
+                "sentence": "Before going to bed.",
+                "plan": 0
+            },
+            {
+                "sentence_id": 1.5,
+                "sentence": "It is about issue #2572.",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 2982933,
+                "user": {
+                    "login": "alexeymuranov"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "I will try to reorganize this tomorrow.",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 3827
+            }
+        ]
+    },
+    {
+        "id": 640387,
+        "title": "authorize_security_group working with boto 1.9b and not working with 2.0b4",
+        "user": {
+            "login": "sajuptpm"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "* Following code is working with boto 1.9b  and not working with 2.0b4.",
+                "planw": 1
+            },
+            {
+                "sentence_id": 1.2,
+                "sentence": "region = boto.ec2.regioninfo.RegionInfo(name=\"Eucalyptus\", endpoint=\"192.168.1.107\")\r\nconn = boto.connect_ec2(aws_access_key_id=\"WKy3rMzOWPouVOxK1p3Ar1C2uRBwa2FBXnCw\",\r\n                                aws_secret_access_key=\"huDWiOIApCTu3ayDzvts1tdhAXs3hgDqOdw\",\r\n                                is_secure=True,\r\n                                region=region,\r\n                                port=8773,\r\n                                path=\"/services/Eucalyptus\")\r\n\r\nsg = conn.create_security_group('my_group', 'description')\r\nauth = conn.authorize_security_group(sg.name, None, None, ip_protocol='tcp', from_port='22', to_port='22', cidr_ip='0.0.0.0/0')\r\n\r\n------------------------------------\r\n\r\nhttp://groups.google.com/group/boto-users/browse_thread/thread/9a52990c96e0816d/28cd875d457c56b6#28cd875d457c56b6\r\n\r\nI am using 'Ubuntu Enterprise Cloud' (ubuntu 10.4)\r\n\r\n(test_env)root@cc-host:~# cat /etc/eucalyptus/eucalyptus-version\r\n1.6.2 \r\n\r\nPlease send fix to sajuptpm@gmail.com",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 935656,
+                "user": {
+                    "login": "garnaat"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "This is due to a change in the EC2 request.",
+                        "plan": 1
+                    },
+                    {
+                        "sentence_id": 2.2,
+                        "sentence": "The latest version of boto uses the latest request syntax but version 1.9b used the old syntax.",
+                        "plan": 0
+                    },
+                    {
+                        "sentence_id": 2.3,
+                        "sentence": "The version of Eucalyptus you are using only understands the old syntax so you need to use the version of boto that is compatible with that version of Eucalyptus.",
+                        "plan": 1
+                    }
+                ],
+                "issue_id": 126
+            }
+        ]
+    },
+    {
+        "id": 6622311,
+        "title": "ticket #1925 concurrent tests for producer and consumer activation",
+        "user": {
+            "login": "RayRoestenburg"
+        },
+        "body": [
+            {
+                "sentence_id": 1.1,
+                "sentence": "Added a test for concurrent activation of producers and consumers.",
+                "plan": 0
+            }
+        ],
+        "comment_list": [
+            {
+                "id": 8267549,
+                "user": {
+                    "login": "RayRoestenburg"
+                },
+                "body": [
+                    {
+                        "sentence_id": 2.1,
+                        "sentence": "Fixed based on review",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 672
+            },
+            {
+                "id": 8648960,
+                "user": {
+                    "login": "viktorklang"
+                },
+                "body": [
+                    {
+                        "sentence_id": 3.1,
+                        "sentence": "Closed, new PR will be opened for this",
+                        "plan": 0
+                    }
+                ],
+                "issue_id": 672
+            }
+        ]
+    },
+    ,
+    {
+      "id": 1033364,
+      "title": "Allow fuzzy ip queries to accept long typed min_similarity values",
+      "user": {
+        "login": "erickt"
+      },
+      "body": [
+        "Thought this would be useful since I didn't expect to have to pass ip addresses for the min_similarity."
+      ],
+      "comment_list": [
+        {
+          "id": 1338277,
+          "user": {
+            "login": "kimchy"
+          },
+          "body": [
+            "cool, pushed."
+          ],
+          "issue_id": 1012
+        }
+      ]
+    }
+]
